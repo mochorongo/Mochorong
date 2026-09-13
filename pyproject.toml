@@ -1,0 +1,10 @@
+[project]
+name = "comfyui-mochorong"
+description = "Utility nodes for ComfyUI — audio gates, selectors, conditional routing, and type conversion."
+version = "1.0.0"
+license = "MIT"
+requires-python = ">=3.10"
+
+[tool.comfy]
+PublisherId = "mochorongo"
+DisplayName = "Mochorong Nodes"
