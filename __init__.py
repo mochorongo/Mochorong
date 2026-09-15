@@ -7,6 +7,7 @@ from .audio_selector import AudioSelector
 from .audio_gate import AudioGate
 from .intfloat_node import IntFloatNode
 from .custom_gate import CustomGate
+from .model_selector import ModelSelector
 
 NODE_CLASS_MAPPINGS = {
     "AudioSelector": AudioSelector,
@@ -14,6 +15,7 @@ NODE_CLASS_MAPPINGS = {
     "Int and Float": IntFloatNode,
     "Custom Gate": CustomGate,
     "LoadImageOptional": LoadImageOptional,
+    "ModelSelector": ModelSelector,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -22,5 +24,6 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "Int and Float": "Int and Float",
     "Custom Gate": "Custom Gate",
     "LoadImageOptional": "Load Image Optional",
+    "ModelSelector": "Model Selector",
 }
 
