@@ -13,8 +13,7 @@ class LoadImageOptional:
         ))
         return {
             "required": {
-                "enabled": ("BOOLEAN", {"default": True}),
-                "image": (files, {"image_upload": True}),
+                "image": (["None"] + files, {"image_upload": True, "toggleable": True}),
             },
         }
 
@@ -22,8 +21,8 @@ class LoadImageOptional:
     FUNCTION = "load_image"
     CATEGORY = "Mochorong"
 
-    def load_image(self, enabled, image):
-        if not enabled:
+    def load_image(self, image=None):
+        if image is None or image == "None":
             return (None, None)
 
         image_path = folder_paths.get_annotated_filepath(image)
@@ -44,16 +43,16 @@ class LoadImageOptional:
         return (image_out, mask)
 
     @classmethod
-    def IS_CHANGED(s, enabled, image):
-        if not enabled:
-            return "disabled"
+    def IS_CHANGED(s, image=None):
+        if image is None or image == "None":
+            return "none"
         image_path = folder_paths.get_annotated_filepath(image)
         from comfy.utils import calculate_file_hash
         return calculate_file_hash(image_path)
 
     @classmethod
-    def VALIDATE_INPUTS(s, enabled, image):
-        if not enabled:
+    def VALIDATE_INPUTS(s, image=None):
+        if image is None or image == "None":
             return True
         if not folder_paths.exists_annotated_filepath(image):
             return "Invalid image file: {}".format(image)
