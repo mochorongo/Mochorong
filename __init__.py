@@ -16,7 +16,7 @@ NODE_CLASS_MAPPINGS = {
     "Int and Float": IntFloatNode,
     "Custom Gate": CustomGate,
     "LoadImageOptional": LoadImageOptional,
-    "ModelSelector": ModelSelector,
+    "MochoModelSelector": ModelSelector,
     "ValueRouter": ValueRouter,
 }
 
@@ -26,6 +26,6 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "Int and Float": "Int and Float",
     "Custom Gate": "Custom Gate",
     "LoadImageOptional": "Load Image Optional",
-    "ModelSelector": "Model Selector",
+    "MochoModelSelector": "Model Selector",
     "ValueRouter": "Value Router",
 }
