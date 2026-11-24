@@ -10,23 +10,26 @@ class ValueRouter:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "selector":   ("INT", {"default": 4, "min": 0, "max": 100000}),
-                "match_a":    ("INT", {"default": 6, "min": 0, "max": 100000}),
-                "match_b":    ("INT", {"default": 4, "min": 0, "max": 100000}),
-                "in_a":       (ANY,),   # output when selector == match_a
-                "in_b":       (ANY,),   # output when selector == match_b
-                "in_default": (ANY,),   # output otherwise
+                "steps":      ("INT", {"default": 4, "min": 1, "max": 100000}),
+                "match_1":    ("INT", {"default": 4, "min": 1, "max": 100000}),
+                "sigma_1":    (ANY,),   # sai quando steps == match_1
+                "match_2":    ("INT", {"default": 6, "min": 1, "max": 100000}),
+                "sigma_2":    (ANY,),   # sai quando steps == match_2
+                "sigma_else": (ANY,),   # qualquer outro caso
             }
         }
 
-    RETURN_TYPES = (ANY,)
-    RETURN_NAMES = ("out",)
-    FUNCTION = "route"
+    RETURN_TYPES = (ANY, "STRING")
+    RETURN_NAMES = ("sigmas", "full_attention_layers")
+    FUNCTION = "run"
     CATEGORY = "Mochorong"
 
-    def route(self, selector, match_a, match_b, in_a, in_b, in_default):
-        if selector == match_a:
-            return (in_a,)
-        if selector == match_b:
-            return (in_b,)
-        return (in_default,)
+    def run(self, steps, match_1, sigma_1, match_2, sigma_2, sigma_else):
+        layers = ",".join(str(i) for i in sorted({0, 1, steps - 1}))
+        if steps == match_1:
+            sigmas = sigma_1
+        elif steps == match_2:
+            sigmas = sigma_2
+        else:
+            sigmas = sigma_else
+        return (sigmas, layers)
