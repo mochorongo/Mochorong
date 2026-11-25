@@ -10,26 +10,20 @@ class ValueRouter:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "steps":      ("INT", {"default": 4, "min": 1, "max": 100000}),
-                "match_1":    ("INT", {"default": 4, "min": 1, "max": 100000}),
-                "sigma_1":    (ANY,),   # sai quando steps == match_1
-                "match_2":    ("INT", {"default": 6, "min": 1, "max": 100000}),
-                "sigma_2":    (ANY,),   # sai quando steps == match_2
-                "sigma_else": (ANY,),   # qualquer outro caso
+                "selected": ("INT", {"default": 1, "min": 1, "max": 4}),
+                "sigma_1": (ANY,),
+                "sigma_2": (ANY,),
+                "sigma_3": (ANY,),
+                "sigma_4": (ANY,),
             }
         }
 
-    RETURN_TYPES = (ANY, "STRING")
-    RETURN_NAMES = ("sigmas", "full_attention_layers")
-    FUNCTION = "run"
+    RETURN_TYPES = (ANY,)
+    RETURN_NAMES = ("sigmas",)
+    FUNCTION = "route"
     CATEGORY = "Mochorong"
 
-    def run(self, steps, match_1, sigma_1, match_2, sigma_2, sigma_else):
-        layers = ",".join(str(i) for i in sorted({0, 1, steps - 1}))
-        if steps == match_1:
-            sigmas = sigma_1
-        elif steps == match_2:
-            sigmas = sigma_2
-        else:
-            sigmas = sigma_else
-        return (sigmas, layers)
+    def route(self, selected, sigma_1, sigma_2, sigma_3, sigma_4):
+        opts = [sigma_1, sigma_2, sigma_3, sigma_4]
+        i = max(1, min(4, selected)) - 1   # protects out of 1-4 range
+        return (opts[i],)

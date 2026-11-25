@@ -17,8 +17,8 @@ class ModelSelector:
             },
         }
 
-    RETURN_TYPES = ("MODEL", "INT")
-    RETURN_NAMES = ("model", "int_value")
+    RETURN_TYPES = ("MODEL", "INT", "INT")
+    RETURN_NAMES = ("model", "int_value", "selected")
     FUNCTION = "select_model"
     CATEGORY = "Mochorong"
 
@@ -27,11 +27,6 @@ class ModelSelector:
         if model is None:
             raise ValueError(f"No model connected to '{select}' input")
 
-        int_map = {
-            "Model 1": int_1,
-            "Model 2": int_2,
-            "Model 3": int_3,
-            "Model 4": int_4,
-        }
-
-        return (model, int_map[select])
+        int_map = {"Model 1": int_1, "Model 2": int_2, "Model 3": int_3, "Model 4": int_4}
+        index = {"Model 1": 1, "Model 2": 2, "Model 3": 3, "Model 4": 4}[select]
+        return (model, int_map[select], index)
